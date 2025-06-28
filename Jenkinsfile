@@ -2,13 +2,6 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Clone Repo') {
-            steps {
-                git branch: 'main', url: 'https://github.com/halvest/php-test-devops.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 echo 'No dependencies needed for this PHP app'
@@ -29,9 +22,8 @@ pipeline {
 
         stage('Run App') {
             steps {
-                sh 'docker run --rm -p 8000:8000 php-test-devops'
+                sh 'docker run --rm -d -p 8000:8000 --name php-app php-test-devops'
             }
         }
-
     }
 }
